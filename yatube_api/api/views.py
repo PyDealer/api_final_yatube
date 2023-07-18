@@ -1,7 +1,6 @@
 from rest_framework import viewsets, status, filters, permissions
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
-from django_filters.rest_framework import DjangoFilterBackend
 
 from posts.models import Post, Group, Comment, Follow
 from .serializers import (CommentSerializer, FollowSerializer,
@@ -45,8 +44,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filterset_fields = ('user', 'following')
+    filter_backends = (filters.SearchFilter,)
     search_fields = ('following__username',)
     permission_classes = (permissions.IsAuthenticated, OwnerOnly)
 
