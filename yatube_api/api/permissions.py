@@ -7,15 +7,16 @@ class OwnerOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         '''Только аутентифицированный пользователь может делать небезопасные
         запросы'''
-        if request.method == 'POST':
-            return request.user.is_authenticated
-        return True
+        return (
+            request.method in permissions.SAFE_METHODS
+            or request.user.is_authenticated
+        )
 
     def has_object_permission(self, request, view, obj):
         '''Только автор может изменять свои посты или комментарии.'''
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        elif request.method == 'POST':
-            return request.user.is_authenticated
-        elif request.method == 'PUT' or 'PATCH' or 'DELETE':
-            return obj.author == request.user
+        return (
+            request.method in permissions.SAFE_METHODS
+            or request.method == 'POST'
+            or (request.method in ['PUT', 'PATCH', 'DELETE']
+                and obj.author == request.user)
+        )
