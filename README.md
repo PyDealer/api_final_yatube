@@ -54,11 +54,17 @@ python3 manage.py runserver
 
 ### Примеры запросов:
 http://127.0.0.1:8000/api/v1/posts/
+
 http://127.0.0.1:8000/api/v1/posts/{id}/
+
 http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/
+
 http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/{id}/
+
 http://127.0.0.1:8000/api/v1/groups/
+
 http://127.0.0.1:8000/api/v1/groups/{id}/
+
 http://127.0.0.1:8000/api/v1/follow/
 
 ### Полную документацию к API можно посмотреть, предварительно запустив проект, по адресу:
